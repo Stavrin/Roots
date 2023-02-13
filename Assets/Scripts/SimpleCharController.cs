@@ -35,13 +35,13 @@ public class SimpleCharController : MonoBehaviour
 
     [SerializeField] OVRHeadsetEmulator headsetEmulator;
 
-    GameManager game;
+    [SerializeField] GameManager game;
 
 
     void Awake()
     {
         singleton = this;
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     public static SimpleCharController GetInstance()

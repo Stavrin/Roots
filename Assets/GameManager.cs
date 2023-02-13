@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager singleton; //static is a singleton, one instance only
 
-    public bool usingVR;
+    public bool usingVR = false;
     public bool spinningMode;
     public bool jankyMode;
 
