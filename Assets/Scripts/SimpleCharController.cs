@@ -1,12 +1,6 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using OVR;
-using UnityEngine.XR;
-///using static UnityEditor.Searcher.SearcherWindow.Alignment;
-using UnityEngine.InputSystem;
-using System.ComponentModel;
+
 
 public class SimpleCharController : MonoBehaviour
 {
