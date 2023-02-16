@@ -83,10 +83,11 @@ public class SimpleCharController : MonoBehaviour
 
             if (game.usingVR) //if the VRcam is being used, move the character in relation to that
             {
-                moveDirection = (transform.forward * OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y) + (transform.right * OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x);
+                //this all did not work when tested with Oculus Headset
+                //moveDirection = (transform.forward * OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y) + (transform.right * OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x);
 
                 //headset emulator
-                moveDirection = (headsetEmulator.transform.forward * Input.GetAxis("Vertical")) + (headsetEmulator.transform.right * Input.GetAxis("Horizontal"));
+                //moveDirection = (headsetEmulator.transform.forward * Input.GetAxis("Vertical")) + (headsetEmulator.transform.right * Input.GetAxis("Horizontal"));
             }
 
             moveDirection = moveDirection.normalized * speed; //transform forward and right are needed to make character move in direction they are facing
@@ -113,23 +114,29 @@ public class SimpleCharController : MonoBehaviour
             if(game.jankyMode)
                 transform.localEulerAngles = new Vector3(-rotY, rotX, 0);
 
+            if (game.spinningMode)
+                headsetEmulator.transform.localEulerAngles = new Vector3(-5f, rotX, 0);
+
             virtualCamera.transform.localEulerAngles = new Vector3(-rotY, rotX, 0); //move the virtual camera
+
+            if (game.spinningMode)
+                transform.localEulerAngles = new Vector3(-5f, rotX, 0);
         }
         else
         {
-            Quaternion gaze = OVRInput.GetLocalControllerRotation(OVRInput.Controller.Touch);
+            //did not work with Oculus
+            //Quaternion gaze = OVRInput.GetLocalControllerRotation(OVRInput.Controller.Touch);
 
-            float rotX = transform.localEulerAngles.y + gaze.x + Input.GetAxis("Mouse X") * sensitivity;
-            rotY += (gaze.y + Input.GetAxis("Mouse Y")) * sensitivity;
-            rotY = Mathf.Clamp(rotY, -90f, 90f);
+            //float rotX = transform.localEulerAngles.y + gaze.x + Input.GetAxis("Mouse X") * sensitivity;
+            //rotY += (gaze.y + Input.GetAxis("Mouse Y")) * sensitivity;
+            //rotY = Mathf.Clamp(rotY, -90f, 90f);
 
-            transform.localEulerAngles = new Vector3(0, rotX, 0); //move the character just horizontally
+            //transform.localEulerAngles = new Vector3(0, rotX, 0); //move the character just horizontally
 
             //emulated vr camera movement, can cause the spinning
             //headsetEmulator.transform.localEulerAngles = new Vector3(-rotY, rotX, 0);
 
-            if(game.spinningMode)
-                headsetEmulator.transform.localEulerAngles = new Vector3(-5f, rotX, 0);
+
 
         }
 
